@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const CUSTOMER_API_BASE_URL = "http://localhost:8021/customers";
+const CUSTOMER_API_BASE_URL = "https://g0sh.herokuapp.com/customers";
 
 class CustomerService {
 
