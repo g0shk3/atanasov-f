@@ -64,7 +64,7 @@ class ListCustomerComponent extends Component {
                                         <td> {customer.email}</td>
                                         <td> {customer.phoneNumber}</td>
                                         <td>
-                                            <button onClick={ () => this.editCustomer(customer.id)} className="btn btn-info">Update </button>
+                                            <button onClick={ () => this.editCustomer(customer.id)} className="btn btn-info"> Update </button>
                                             <button style={{marginLeft: "10px"}} onClick={ () => this.deleteCustomer(customer.id)} className="btn btn-danger">Delete </button>
                                             <button style={{marginLeft: "10px"}} onClick={ () => this.viewCustomer(customer.id)} className="btn btn-info">View </button>
                                         </td>
