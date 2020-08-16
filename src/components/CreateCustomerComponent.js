@@ -10,7 +10,11 @@ class CreateCustomerComponent extends Component {
             firstName: '',
             lastName: '',
             email: '',
-            phoneNumber:''
+            phoneNumber:'',
+            errorEmail: "",
+            errorFirstName: "",
+            errorLastName: "",
+            errorPhoneNumber: ""
         }
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
@@ -34,11 +38,41 @@ class CreateCustomerComponent extends Component {
             });
         }        
     }
+
+    validate = () =>{
+        let errorEmail = "";
+        let errorFirstName = "";
+        let errorLastName = "";
+        let errorPhoneNumber = "";
+
+        if(!this.state.lastName){
+            errorLastName = "name cannon be blank!";
+        }
+        if(!this.state.firstName){
+            errorFirstName = "name cannon be blank!";
+        }
+        if(!this.state.phoneNumber){
+            errorPhoneNumber = "Invalid mobile phone! Mobile phone must be +3598XX XXX XXX," +
+            " +3598XXXXXXXX,+3598XX-XXX-XXX or 08XX XXX XXX, 08XXXXXXXX, 08XX-XXX-XXX "
+        }
+
+        if(!this.state.email.includes('@')){
+            errorEmail = "invalid email";
+        }
+        if (errorEmail || errorFirstName || errorLastName || errorPhoneNumber ){
+            this.setState({errorEmail, errorFirstName, errorLastName, errorPhoneNumber});
+            return false;
+        }
+        return true;
+
+    }
     saveOrUpdateCustomer = (e) => {
         e.preventDefault();
         let customer = {firstName: this.state.firstName, lastName: this.state.lastName, email: this.state.email, phoneNumber: this.state.phoneNumber};
+        const isValid = this.validate();
+        if(isValid){
         console.log('customer => ' + JSON.stringify(customer));
-
+        }
         if(this.state.id === '_add'){
             CustomerService.createCustomer(customer).then(res =>{
                 this.props.history.push('/customers');
@@ -91,21 +125,37 @@ class CreateCustomerComponent extends Component {
                                             <label> First Name: </label>
                                             <input placeholder="First Name" name="firstName" className="form-control" 
                                                 value={this.state.firstName} onChange={this.changeFirstNameHandler}/>
+                                             <div style={{color : "red"}}>
+                                                 {this.state.errorFirstName}
+                                            </div>    
                                         </div>
                                         <div className = "form-group">
                                             <label> Last Name: </label>
                                             <input placeholder="Last Name" name="lastName" className="form-control" 
                                                 value={this.state.lastName} onChange={this.changeLastNameHandler}/>
+                                             <div style={{color : "red"}}>
+                                                 {this.state.errorLastName}
+                                            </div>    
                                         </div>
                                         <div className = "form-group">
                                             <label> Email: </label>
-                                            <input placeholder="Email Address" name="email" className="form-control" 
-                                                value={this.state.email} onChange={this.changeEmailHandler}/>
+                                            <input
+                                                placeholder="Email Address"
+                                                name="email" className="form-control" 
+                                                value={this.state.email} 
+                                                onChange={this.changeEmailHandler}
+                                             />
+                                             <div style={{color : "red"}}>
+                                                 {this.state.errorEmail}
+                                            </div>
                                         </div>
                                         <div className = "form-group">
                                             <label> Phone Number: </label>
                                             <input placeholder="Phone Number" name="phoneNumber" className="form-control" 
                                                 value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
+                                            <div style={{color : "red"}}>
+                                                 {this.state.errorPhoneNumber}
+                                            </div> 
                                         </div>
 
                                         <button className="btn btn-success" onClick={this.saveOrUpdateCustomer}>Save</button>
