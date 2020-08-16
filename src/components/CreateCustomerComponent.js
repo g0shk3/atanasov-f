@@ -52,7 +52,7 @@ class CreateCustomerComponent extends Component {
             errorFirstName = "name cannon be blank!";
         }
         if(!this.state.phoneNumber){
-            errorPhoneNumber = "Invalid mobile phone! Mobile phone must be +3598XX XXX XXX," +
+            errorPhoneNumber = "Mobile phone must be +3598XX XXX XXX," +
             " +3598XXXXXXXX,+3598XX-XXX-XXX or 08XX XXX XXX, 08XXXXXXXX, 08XX-XXX-XXX "
         }
 
