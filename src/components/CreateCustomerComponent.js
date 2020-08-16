@@ -13,8 +13,8 @@ class CreateCustomerComponent extends Component {
             phoneNumber:'',
             errorEmail: "",
             errorFirstName: "",
-            errorLastName: "",
-            errorPhoneNumber: ""
+            errorLastName: ""
+            
         }
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
@@ -43,7 +43,7 @@ class CreateCustomerComponent extends Component {
         let errorEmail = "";
         let errorFirstName = "";
         let errorLastName = "";
-        let errorPhoneNumber = "";
+    
 
         if(!this.state.lastName){
             errorLastName = "name cannon be blank!";
@@ -51,16 +51,13 @@ class CreateCustomerComponent extends Component {
         if(!this.state.firstName){
             errorFirstName = "name cannon be blank!";
         }
-        if(!this.state.phoneNumber){
-            errorPhoneNumber = "Mobile phone must be +3598XX XXX XXX," +
-            " +3598XXXXXXXX,+3598XX-XXX-XXX or 08XX XXX XXX, 08XXXXXXXX, 08XX-XXX-XXX "
-        }
+        
 
         if(!this.state.email.includes('@')){
             errorEmail = "invalid email";
         }
-        if (errorEmail || errorFirstName || errorLastName || errorPhoneNumber ){
-            this.setState({errorEmail, errorFirstName, errorLastName, errorPhoneNumber});
+        if (errorEmail || errorFirstName || errorLastName  ){
+            this.setState({errorEmail, errorFirstName, errorLastName});
             return false;
         }
         return true;
@@ -153,9 +150,7 @@ class CreateCustomerComponent extends Component {
                                             <label> Phone Number: </label>
                                             <input placeholder="Phone Number" name="phoneNumber" className="form-control" 
                                                 value={this.state.phoneNumber} onChange={this.changePhoneNumberHandler}/>
-                                            <div style={{color : "red"}}>
-                                                 {this.state.errorPhoneNumber}
-                                            </div> 
+                                            
                                         </div>
 
                                         <button className="btn btn-success" onClick={this.saveOrUpdateCustomer}>Save</button>
